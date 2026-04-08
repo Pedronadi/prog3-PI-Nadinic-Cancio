@@ -11,7 +11,7 @@ class MiFormulario extends Component {
     controlarForm(evento){
         evento.preventDefault();
         if(this.state.busqueda !== ""){
-            this.props.history.push(/resultados/${this.state.busqueda});
+            this.props.history.push(`/resultados/${this.state.busqueda}`);
         }
 
     }
