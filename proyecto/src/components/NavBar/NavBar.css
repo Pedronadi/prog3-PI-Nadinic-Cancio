@@ -7,11 +7,15 @@ nav {
 }
 .nav {
     margin: 0;
-}
-.nav a{
-    color: #444;
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+     color: #444;
     text-decoration: none;
+    list-style: none;
+
 }
 .nav a:hover{
     font-weight: bold;
 }
+
