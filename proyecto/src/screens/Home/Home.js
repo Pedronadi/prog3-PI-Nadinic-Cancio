@@ -1,32 +1,17 @@
 import React, {Component} from "react";
-import MovieCard from "../../components/MovieCard/MovieCard";
-const api = "https://api.themoviedb.org/3/movie/popular?api_key=4538691d5c60f1ca0445b38ca446d641";
-export default class Pelicula extends Component {
-    constructor(props){
-        super(props); 
-        this.state = {
-            peliculas: []
-        }
-    }           
-    componentDidMount(){
-        fetch(api)
-        .then(response => response.json())
-        .then(data => this.setState({peliculas: data.results}))
-        .catch(error => console.log(error)
-        )
-    }
+import SeccionPeliculas from "../../components/SeccionPeliculas/SeccionPeliculas";
+import SeccionSeries from "../../components/SeccionSeries/SeccionSeries";
+
+export default class Home extends Component {
     render(){
-        console.log(this.state.peliculas);
-        
-        return (
-            <section class="row cards" id="movies">
-                
-                {this.state.peliculas.length === 0 ? <h3>Cargando...</h3> : this.state.peliculas.map( peli => 
-                {
-                    return <MovieCard peli={peli} key={peli.id} />
-                })}
-           </section>
-        )
+        return ( 
+            <div>
+                <h2 class="alert alert-primary">Popular movies this week</h2>
+        <SeccionPeliculas />
+        <h2 class="alert alert-warning">TV shows airing today</h2>
+        <SeccionSeries />
+        </div>
+
+         )
     }
 }
-         
