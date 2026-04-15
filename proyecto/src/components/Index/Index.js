@@ -19,13 +19,13 @@ export default class Pelicula extends Component {
         console.log(this.state.peliculas);
         
         return (
-            <div>
+            <section class="row cards" id="movies">
                 
                 {this.state.peliculas.length === 0 ? <h3>Cargando...</h3> : this.state.peliculas.map( peli => 
                 {
                     return <MovieCard peli={peli} key={peli.id} />
                 })}
-            </div>
+           </section>
         )
     }
 }
