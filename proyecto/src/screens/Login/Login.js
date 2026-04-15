@@ -22,7 +22,7 @@ function Login(){
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
                 </form>
-                <p class="mt-3 text-center">¿No tenés cuenta? <a href="register.html">Registrarse</a></p>
+                <p class="mt-3 text-center">¿No tenés cuenta? <a href="./registro">Registrarse</a></p>
             </div>
         </div>
         </React.Fragment>

@@ -19,7 +19,7 @@ export default function Registro() {
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
                 </form>
-                <p class="mt-3 text-center">¿Ya tenés cuenta? <a href="login.html">Iniciar sesión</a></p>
+                <p class="mt-3 text-center">¿Ya tenés cuenta? <a href="./login">Iniciar sesión</a></p>
             </div>
         </div>
     </React.Fragment>
