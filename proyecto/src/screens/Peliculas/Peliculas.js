@@ -1,7 +1,10 @@
 import React from "react";
-
+import Pelicula from "../../components/Pelicula/Pelicula";
 export default function Peliculas() {
     return(
-        <h1>Peliculas</h1>
+        <div>
+          <h2 class="alert alert-primary">Todas las películas</h2>
+            <Pelicula />
+        </div>
     )
 }
