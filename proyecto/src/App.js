@@ -9,6 +9,7 @@ import Detalle from "./screens/Detalle/Detalle";
 import NoEncontrado from "./screens/NoEncontrado/NoEncontrado";
 import Resultado from "./screens/Resultado/Resultado";
 import Home from "./screens/Home/Home";
+import Footer from "./components/Footer/Footer";
 function App() {
   return (
     <div>
@@ -24,6 +25,7 @@ function App() {
   <Route path="/resultado/:busqueda" component={Resultado} />
     <Route path="*" component={NoEncontrado} />
 </Switch>  
+<Footer />
     </div>
   );
 }
