@@ -1,6 +1,7 @@
 import React from "react";
 function MovieCard(props){
      return(
+        <React.Fragment>
         <article className="single-card-movie">
                 <img src={`https://image.tmdb.org/t/p/w500/${props.peli.poster_path}`} className="card-img-top"
                     alt="..."></img>
@@ -11,6 +12,7 @@ function MovieCard(props){
                     <a href="" className="btn alert-primary">🩶</a>
                 </div>
             </article>
+        </React.Fragment> 
      )
 }
 
