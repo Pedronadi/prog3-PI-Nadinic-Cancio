@@ -15,11 +15,21 @@ export default class Registrar extends Component {
     }
     onSubmit = (e) => {
         e.preventDefault();
+        const {email, password} = this.state;
+        if (!email.includes("@")) {
+            this.setState({ error: "Email mal formateado" });
+            return;
+        }
+        if (password.length < 5 || password.length > 12) {
+            this.setState({ error: "La extensión del password debe ser de 5 a 12 caracteres" });
+            return;
+        }
        let usuarioARegistrar = {
             email: this.state.email,
             password: this.state.password,
             createdAT: Date.now()
         }
+
 
     }
     render(){
