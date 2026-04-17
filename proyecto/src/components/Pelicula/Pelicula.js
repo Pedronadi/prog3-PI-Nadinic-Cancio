@@ -28,6 +28,7 @@ export default class Pelicula extends Component {
         console.log(this.state.peliculas);
         
         return (
+            <React.Fragment>
             <section class="row cards" id="movies">
                 
                 {this.state.peliculas.length === 0 ? <h3>Cargando...</h3> : this.state.peliculas.map( peli => 
@@ -35,8 +36,10 @@ export default class Pelicula extends Component {
                     return <MovieCard peli={peli} key={peli.id} />
                    
                 })}
-                 <button class="btn btn-info" onClick={() => this.cargarMas()}>Cargar más</button>
+                 
            </section>
+           <button class="btn btn-info" onClick={() => this.cargarMas()}>Cargar más</button>
+           </React.Fragment>
         )
     }
 }
