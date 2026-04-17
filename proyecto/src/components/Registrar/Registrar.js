@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-
-export default class Registrar extends Component {
+import { withRouter } from "react-router-dom"
+ class Registrar extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -15,23 +15,49 @@ export default class Registrar extends Component {
     }
     onSubmit = (e) => {
         e.preventDefault();
-        const {email, password} = this.state;
-        if (!email.includes("@")) {
-            this.setState({ error: "Email mal formateado" });
-            return;
-        }
-        if (password.length < 5 || password.length > 12) {
-            this.setState({ error: "La extensión del password debe ser de 5 a 12 caracteres" });
-            return;
-        }
-       let usuarioARegistrar = {
+     
+         let usuarioARegistrar = {
             email: this.state.email,
             password: this.state.password,
             createdAT: Date.now()
         }
 
-
+        if(this.state.email.includes("@") === false){
+            this.setState({error: "Email mal formateado"})
+            return;
+        }
+        if(this.state.password.length < 5 || this.state.password.length > 12){
+            this.setState({error: "La extensión del password debe ser de 5 a 12 caracteres"})
+            return;
+        }
+      let usersStorage = localStorage.getItem("users");
+      if( usersStorage !==null){
+            let usersParseado = JSON.parse(usersStorage);
+            console.log(usuarioARegistrar.email);     
+            let usersFiltrado = usersParseado.filter(user => user.email === usuarioARegistrar.email);
+            if(usersFiltrado.length > 0){
+                this.setState({error: "El email ya se encuentra registrado"})
+                return;
+            }
+              else{
+        usersParseado.push(usuarioARegistrar);
+       let usersJson = JSON.stringify(usersParseado);
+       localStorage.setItem("users", usersJson);
+        this.props.history.push("/login");
     }
+      }
+      
+    else{
+        let usersInicial = [usuarioARegistrar]
+        let usersJson = JSON.stringify(usersInicial);
+        localStorage.setItem("users", usersJson);
+
+    
+    }
+
+       
+        this.props.history.push("/Login");  
+}
     render(){
         return (
          <React.Fragment>
@@ -39,7 +65,7 @@ export default class Registrar extends Component {
 
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form>
+                <form onSubmit={(e) => this.onSubmit(e)}>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input onChange={(e) => this.controlarCambio(e, "email")} type="email" class="form-control" id="email" placeholder="Ingresá tu email"></input>
@@ -58,3 +84,5 @@ export default class Registrar extends Component {
         )
     }
 }
+
+export default withRouter(Registrar)
