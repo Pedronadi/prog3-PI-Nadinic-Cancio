@@ -24,9 +24,9 @@ class MiFormulario extends Component {
 
     render() {
         return (
-            <form onSubmit={(evento) => this.controlarForm(evento)}>
+            <form class="search-form" onSubmit={(evento) => this.controlarForm(evento)}>
                 <input type="text" placeholder="Buscar..." onChange={(evento) => this.controlarImput(evento)}/>
-                <button type="submit">Buscar</button>
+                <button class="btn btn-success btn-sm" type="submit">Buscar</button>
             </form>
         )}
     }

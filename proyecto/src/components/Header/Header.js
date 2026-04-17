@@ -6,7 +6,6 @@ function Header() {
     return(
         <header>
             <NavBar/>
-            <MiFormulario />
         </header>
     )
 }
