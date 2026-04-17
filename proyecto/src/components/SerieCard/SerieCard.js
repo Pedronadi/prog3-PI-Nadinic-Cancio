@@ -7,7 +7,7 @@ function SerieCard(props){
                 <div className="cardBody">
                     <h5 className="card-title">{props.serie.name}</h5>
                     <p className="card-text">{props.serie.overview}</p>
-                    <a href={`/detalles/series/${props.serie.id}`} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Ver más</a>
+                    <a href={`/detalles/tv/${props.serie.id}`} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Ver más</a>
                     <a href="" className="btn alert-primary">🩶</a>
                 </div>
             </article>
