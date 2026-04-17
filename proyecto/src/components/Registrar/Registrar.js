@@ -37,6 +37,7 @@ import { withRouter } from "react-router-dom"
             let usersFiltrado = usersParseado.filter(user => user.email === usuarioARegistrar.email);
             if(usersFiltrado.length > 0){
                 this.setState({error: "El email ya se encuentra registrado"})
+                alert("Este mail ya esta en uso")
                 return;
             }
               else{
