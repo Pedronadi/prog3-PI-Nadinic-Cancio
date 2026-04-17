@@ -7,6 +7,8 @@ function MovieCard(props){
                     alt="..."></img>
                 <div className="cardBody">
                     <h5 className="card-title">{props.peli.title}</h5>
+
+                    
                     <p className="card-text">{props.peli.overview}</p>
                     <a href= {`/detalles/movie/${props.peli.id}`} className="btn btn-primary">Ver más</a>
                     <a href="" className="btn alert-primary">🩶</a>

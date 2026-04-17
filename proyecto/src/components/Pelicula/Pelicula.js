@@ -5,15 +5,24 @@ export default class Pelicula extends Component {
     constructor(props){
         super(props); 
         this.state = {
-            peliculas: []
+            peliculas: [],
+            cargarMas: 1
         }
     }           
     componentDidMount(){
         fetch(api)
         .then(response => response.json())
-        .then(data => this.setState({peliculas: data.results}))
+        .then(data => this.setState({peliculas: data.results, cargarMas: this.state.cargarMas + 1}))
         .catch(error => console.log(error)
         )
+    }
+    cargarMas(){
+        console.log("me ejecuto");
+        
+        fetch(api + "&page=" + this.state.cargarMas)
+        .then(res => res.json())
+        .then(data => this.setState({peliculas: this.state.peliculas.concat(data.results), cargarMas: this.state.cargarMas + 1})) 
+        .catch(err => console.log(err));
     }
     render(){
         console.log(this.state.peliculas);
@@ -24,7 +33,9 @@ export default class Pelicula extends Component {
                 {this.state.peliculas.length === 0 ? <h3>Cargando...</h3> : this.state.peliculas.map( peli => 
                 {
                     return <MovieCard peli={peli} key={peli.id} />
+                   
                 })}
+                 <button class="btn btn-info" onClick={() => this.cargarMas()}>Cargar más</button>
            </section>
         )
     }
