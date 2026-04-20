@@ -90,3 +90,9 @@ nav {
         grid-template-columns: 1fr;
     }
 }
+.hide {
+    display: none;
+}
+.show{
+    display: block;
+}
