@@ -96,3 +96,6 @@ nav {
 .show{
     display: block;
 }
+.btn.btn-primary {
+    margin: 5px 0;
+}
