@@ -24,10 +24,12 @@ import { withRouter } from "react-router-dom"
 
         if(this.state.email.includes("@") === false){
             this.setState({error: "Email mal formateado"})
+            alert("Email mal formateado")
             return;
         }
         if(this.state.password.length < 5 || this.state.password.length > 12){
             this.setState({error: "La extensión del password debe ser de 5 a 12 caracteres"})
+            alert("La extensión del password debe ser de 5 a 12 caracteres")
             return;
         }
       let usersStorage = localStorage.getItem("users");
