@@ -11,7 +11,7 @@ import { withRouter } from "react-router-dom"
     controlarCambio = (e,campo) => {
         this.setState({
             [campo]: e.target.value
-        })
+        })  
     }
     onSubmit = (e) => {
         e.preventDefault();

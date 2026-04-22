@@ -22,7 +22,7 @@ function App() {
   <Route path="/series" component={Series} />
   <Route path="/Favoritas" component={Favoritas} />
   <Route path= "/detalles/:tipo/:id" component={Detalle} />
-  <Route path="/resultado/:busqueda" component={Resultado} />
+  <Route path="/resultados/:busqueda/:tipo" component={Resultado} />
     <Route path="*" component={NoEncontrado} />
 </Switch>  
 <Footer />
