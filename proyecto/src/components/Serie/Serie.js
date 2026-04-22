@@ -6,7 +6,7 @@ export default class Serie extends Component {
         super(props); 
         this.state = {
             series: [],
-            cargarMas: 1 
+            cargarMas: 2
         }
     }           
     componentDidMount(){
