@@ -4,13 +4,53 @@ class SerieCard extends Component{
     constructor(props){
         super(props);
         this.state = {
-            mostrarMas: false
+            mostrarMas: false,
+            favorito: false
         }
     }
     mostrameMas = () =>{
         this.setState({
             mostrarMas: !this.state.mostrarMas
         })
+    }
+      componentDidMount(){
+        let fav = localStorage.getItem("SeriesFav")
+        if(fav !== null){
+            let Parseado = JSON.parse(fav)
+            let EsFav = Parseado.includes(this.props.serie.id)
+            if( EsFav ){
+                this.setState({favorito: true})
+                
+            }
+        }
+    }
+    
+    sumarFavoritos = (id) =>{
+        let fav = localStorage.getItem("SeriesFav");
+        if(fav === null){
+            let favInicial = [this.props.serie.id];
+            localStorage.setItem("SeriesFav", JSON.stringify(favInicial));
+        }
+        else{
+            let favParseado = JSON.parse(fav);
+            favParseado.push(this.props.serie.id);
+            localStorage.setItem("SeriesFav", JSON.stringify(favParseado));
+        }
+        this.setState({
+            favorito: !this.state.favorito
+        });
+        
+    }
+    QuitarFavoritos = (id) =>{
+        let fav = localStorage.getItem("SeriesFav");
+        if(fav !== null){
+            let favParseado = JSON.parse(fav);
+            let favFiltrado = favParseado.filter(id => id !== this.props.serie.id);
+            localStorage.setItem("SeriesFav", JSON.stringify(favFiltrado));
+        }
+        this.setState({
+            favorito: !this.state.favorito
+        });
     }
     render(){
         return(
@@ -23,7 +63,9 @@ class SerieCard extends Component{
                     <p className="card-text">{this.props.serie.overview}</p>
                     </section>
                     <button className="btn btn-primary" onClick={this.mostrameMas}>{this.state.mostrarMas ? "Ver menos": "Ver más"} </button>
-                    <a href="" className="btn alert-primary">🩶</a>
+                    <button className="btn alert-primary" onClick={this.state.favorito ? this.QuitarFavoritos : this.sumarFavoritos}>
+                        {this.state.favorito ? "❤️" : "🤍"}
+                    </button>
                 </div>
                 <Link to={`/detalles/tv/${this.props.serie.id}`} className="btn btn-primary">Ver detalle</Link>
             </article>
