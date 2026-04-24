@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 class MovieCard extends Component{
     constructor(props){
@@ -53,6 +56,7 @@ class MovieCard extends Component{
         });
     }
     render(){
+            const isLogged = cookies.get("isLogged");
         return(
          <React.Fragment>
         <article className="single-card-movie">
@@ -64,9 +68,11 @@ class MovieCard extends Component{
                     <p className="card-text">{this.props.peli.overview}</p>
                     </section>
                     <button className="btn btn-primary" onClick={this.mostrameMas}>{this.state.mostrarMas ? "Ver menos": "Ver más"} </button>
-                    <button className="btn alert-primary" onClick={this.state.favorito ? this.QuitarFavoritos : this.sumarFavoritos}>
-                        {this.state.favorito ? "❤️" : "🤍"}
-                    </button>
+                    {isLogged ? (
+                        <button className="btn alert-primary" onClick={this.state.favorito ? this.QuitarFavoritos : this.sumarFavoritos}>
+                            {this.state.favorito ? "❤️" : "🤍"}
+                        </button>
+                    ) : null}
                 </div>
                 <Link to={`/detalles/movie/${this.props.peli.id}`} className="btn btn-primary">Ver detalle</Link>
             </article>

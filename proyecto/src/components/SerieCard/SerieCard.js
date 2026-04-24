@@ -1,5 +1,9 @@
 import React, {Component}from "react";
 import { Link } from "react-router-dom";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
+
 class SerieCard extends Component{
     constructor(props){
         super(props);
@@ -53,6 +57,7 @@ class SerieCard extends Component{
         });
     }
     render(){
+        const isLogged = cookies.get("isLogged");
         return(
             <article className="single-card-on-air mb-3">
                 <img src={`https://image.tmdb.org/t/p/w500/${this.props.serie.poster_path}`} className="card-img-top"
@@ -63,9 +68,11 @@ class SerieCard extends Component{
                     <p className="card-text">{this.props.serie.overview}</p>
                     </section>
                     <button className="btn btn-primary" onClick={this.mostrameMas}>{this.state.mostrarMas ? "Ver menos": "Ver más"} </button>
-                    <button className="btn alert-primary" onClick={this.state.favorito ? this.QuitarFavoritos : this.sumarFavoritos}>
-                        {this.state.favorito ? "❤️" : "🤍"}
-                    </button>
+                    {isLogged ? (
+                        <button className="btn alert-primary" onClick={this.state.favorito ? this.QuitarFavoritos : this.sumarFavoritos}>
+                            {this.state.favorito ? "❤️" : "🤍"}
+                        </button>
+                    ) : null}
                 </div>
                 <Link to={`/detalles/tv/${this.props.serie.id}`} className="btn btn-primary">Ver detalle</Link>
             </article>
