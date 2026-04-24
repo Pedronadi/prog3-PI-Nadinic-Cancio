@@ -24,11 +24,17 @@ export default class Pelicula extends Component {
         .then(data => this.setState({peliculas: this.state.peliculas.concat(data.results), cargarMas: this.state.cargarMas + 1})) 
         .catch(err => console.log(err));
     }
+    FiltrarPeliculas(){
+        const peliculasFiltradas = this.state.peliculas.filter(peli => peli.titulo.toLowerCase().includes(this.state.filtro.toLowerCase())
+        );
+        this.setState({peliculas: peliculasFiltradas});
+    }
     render(){
         console.log(this.state.peliculas);
         
         return (
             <React.Fragment>
+                
             <section class="row cards" id="movies">
                 
                 {this.state.peliculas.length === 0 ? <h3>Cargando...</h3> : this.state.peliculas.map( peli => 
