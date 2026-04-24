@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import { withRouter } from "react-router-dom";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 export default class Login extends Component {
     constructor(props){
         super(props);
@@ -26,6 +28,7 @@ export default class Login extends Component {
             let usersParseado = JSON.parse(usersStorage);
             let usersFiltrado = usersParseado.filter(user => user.email === usuarioAValidar.email && user.password === usuarioAValidar.password);  
             if(usersFiltrado.length > 0){
+                cookies.set("isLogged", true, { path: "/" });
                 this.props.history.push("/");
             }
             else{
@@ -38,6 +41,8 @@ export default class Login extends Component {
     }
     render(){
         return(
+            <React.Fragment>
+            <h2 class="alert alert-primary">Iniciar sesion</h2>
             <div class="row justify-content-center">
             <div class="col-md-6">
                 <form onSubmit={(e) => this.onSubmit(e)}>
@@ -54,6 +59,7 @@ export default class Login extends Component {
                 <p class="mt-3 text-center">¿No tenés cuenta? <a href="./register">Registrarse</a></p>
             </div>
         </div>
+        </React.Fragment>
         )}
 }
 
