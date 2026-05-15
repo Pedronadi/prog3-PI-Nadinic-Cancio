@@ -1,78 +1,73 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import {useState, useEffect} from "react";
+function MovieCard(props) {
 
-class MovieCard extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-        mostrarMas: false,
-        favorito: false
-    }
-    }
-    componentDidMount(){
+    const [mostrarMas, setMostrarMas] = useState(false);
+    const [favorito, setFavorito] = useState(false);  
+
+    useEffect(() => {
         let fav = localStorage.getItem("PeliFav")
         if(fav !== null){
             let Parseado = JSON.parse(fav)
-            let EsFav = Parseado.includes(this.props.peli.id)
+            let EsFav = Parseado.includes(props.peli.id)
             if( EsFav ){
-                this.setState({favorito: true})
-                
+                setFavorito(true)
             }
         }
+    }, [])
+
+    const mostrameMas = () =>{
+        setMostrarMas(!mostrarMas)
     }
-    mostrameMas = () =>{
-        this.setState({
-            mostrarMas: !this.state.mostrarMas
-        })
-    }
-     sumarFavoritos = (id) =>{
+
+        const sumarFavoritos = (id) =>{
         let fav = localStorage.getItem("PeliFav");
         if(fav === null){
-            let favInicial = [this.props.peli.id];
+            let favInicial = [props.peli.id];
             localStorage.setItem("PeliFav", JSON.stringify(favInicial));
         }
         else{
             let favParseado = JSON.parse(fav);
-            favParseado.push(this.props.peli.id);
+            favParseado.push(props.peli.id);
             localStorage.setItem("PeliFav", JSON.stringify(favParseado));
         }
-        this.setState({
-            favorito: !this.state.favorito
-        });
-        
+        setFavorito(!favorito);
     }
-    QuitarFavoritos = (id) =>{
+
+    const QuitarFavoritos = (id) =>{
         let fav = localStorage.getItem("PeliFav");
         if(fav !== null){
             let favParseado = JSON.parse(fav);
-            let favFiltrado = favParseado.filter(id => id !== this.props.peli.id);
+            let favFiltrado = favParseado.filter(id => id !== props.peli.id);
             localStorage.setItem("PeliFav", JSON.stringify(favFiltrado));
         }
-        this.setState({
-            favorito: !this.state.favorito
-        });
+        setFavorito(!favorito);
     }
-    render(){
-        return(
+
+    return(
          <React.Fragment>
         <article className="single-card-movie">
-                <img src={`https://image.tmdb.org/t/p/w500/${this.props.peli.poster_path}`} className="card-img-top"
+                <img src={`https://image.tmdb.org/t/p/w500/${props.peli.poster_path}`} className="card-img-top"
                     alt="..."></img>
                 <div className="cardBody">
-                    <h5 className="card-title">{this.props.peli.title}</h5>
-                 <section className={this.state.mostrarMas ? "show" : "hide"}>
-                    <p className="card-text">{this.props.peli.overview}</p>
+                    <h5 className="card-title">{props.peli.title}</h5>
+                 <section className={mostrarMas ? "show" : "hide"}>
+                    <p className="card-text">{props.peli.overview}</p>
                     </section>
-                    <button className="btn btn-primary" onClick={this.mostrameMas}>{this.state.mostrarMas ? "Ver menos": "Ver más"} </button>
-                    <button className="btn alert-primary" onClick={this.state.favorito ? this.QuitarFavoritos : this.sumarFavoritos}>
-                        {this.state.favorito ? "❤️" : "🤍"}
+                    <button className="btn btn-primary" onClick={mostrameMas}>
+                        {mostrarMas ? "Ver menos" : "Ver más"}
+                    </button>
+                    <button className="btn alert-primary" onClick={() => favorito ? QuitarFavoritos(props.peli.id) : sumarFavoritos()}>
+                        {favorito ? "❤️" : "🤍"}
                     </button>
                 </div>
-                <Link to={`/detalles/movie/${this.props.peli.id}`} className="btn btn-primary">Ver detalle</Link>
+                <Link to={`/detalles/movie/${props.peli.id}`} className="btn btn-primary">Ver detalle</Link>
             </article>
             
         </React.Fragment> 
         )
     }
-}
+
 export default MovieCard
+     
