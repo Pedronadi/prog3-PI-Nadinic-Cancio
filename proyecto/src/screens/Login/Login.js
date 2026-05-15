@@ -56,7 +56,7 @@ export default class Login extends Component {
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
                 </form>
-                <p class="mt-3 text-center">¿No tenés cuenta? <a href="./register">Registrarse</a></p>
+                <p class="mt-3 text-center">¿No tenés cuenta? <a href="./Registro">Registrarse</a></p>
             </div>
         </div>
         </React.Fragment>
