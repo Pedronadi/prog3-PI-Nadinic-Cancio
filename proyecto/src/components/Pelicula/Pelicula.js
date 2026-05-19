@@ -8,24 +8,41 @@ function Peliculas(props) {
     const [peliculas, setPeliculas] = useState([]);
     const [busqueda, setBusqueda] = useState("");
     const [cargarMas, setCargarMas] = useState(1);
+    const [backup, setBackup] = useState([]);
 
     useEffect(() => {
         fetch(api)
         .then(response => response.json())
-        .then(data => setPeliculas(data.results))
+        .then(data => {
+            setPeliculas(data.results);
+            setBackup(data.results);
+        })
         .catch(error => console.log(error)
         )
     }, [])
 
     const cargarPeliculas = () => {
         console.log("me ejecuto");  
-        fetch(api + "&page=" + (cargarMas + 1))
-        .then(res => res.json())
-        .then(data => setPeliculas(peliculas.concat(data.results))) 
-        .catch(err => console.log(err));
+       fetch(api + "&page=" + (cargarMas + 1))
+            .then(res => res.json())
+            .then(data => {
+                let nuevasPeliculas =
+                    peliculas.concat(data.results);
+                setPeliculas(nuevasPeliculas);
+                setBackup(
+                    backup.concat(data.results)
+                );
+                setCargarMas(cargarMas + 1);
+            })
+            .catch(err => console.log(err));
     }
     const handleChange = (e) => {
         setBusqueda(e.target.value);
+        const peliculasFiltradas = backup.filter(peli =>
+            peli.title.toLowerCase().includes(busqueda.toLowerCase())
+        );
+        setPeliculas(peliculasFiltradas);
+
     }
  
     return (  
