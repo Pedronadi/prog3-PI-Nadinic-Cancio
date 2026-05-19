@@ -3,7 +3,7 @@ import MovieCard from "../MovieCard/MovieCard";
 import {useState,useEffect} from "react";
 const api = "https://api.themoviedb.org/3/movie/popular?api_key=4538691d5c60f1ca0445b38ca446d641";
 
-function SeccionPeliculas(props) {
+function Peliculas(props) {
 
     const [peliculas, setPeliculas] = useState([]);
     const [busqueda, setBusqueda] = useState("");
@@ -12,7 +12,7 @@ function SeccionPeliculas(props) {
     useEffect(() => {
         fetch(api)
         .then(response => response.json())
-        .then(data => setPeliculas(data.results.slice(0, 5)))
+        .then(data => setPeliculas(data.results))
         .catch(error => console.log(error)
         )
     }, [])
@@ -42,7 +42,7 @@ function SeccionPeliculas(props) {
                 </div>
             <section class="row cards" id="movies">
                 
-                {this.state.peliculas.length === 0 ? <h3>Cargando...</h3> : this.state.peliculas.map( peli => 
+                {peliculas.length === 0 ? <h3>Cargando...</h3> : peliculas.map( peli => 
                 {
                     return <MovieCard peli={peli} key={peli.id} />
                    
@@ -54,7 +54,7 @@ function SeccionPeliculas(props) {
         )
     }
 
-        export default SeccionPeliculas;
+        export default Peliculas;
 
 // export default class Pelicula extends Component {
 //     constructor(props){
