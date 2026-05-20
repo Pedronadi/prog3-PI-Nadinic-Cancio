@@ -1,10 +1,14 @@
 
 import { Link } from "react-router-dom";
 import { useState,useEffect } from "react";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 function SerieCard(props) {
 
     const [mostrarMas, setMostrarMas] = useState(false);
     const [favorito, setFavorito] = useState(false);
+    const islogged = cookies.get("isLogged");
     useEffect(() => {
         let fav = localStorage.getItem("SeriesFav")
         if(fav !== null){
@@ -54,9 +58,10 @@ function SerieCard(props) {
                     <button className="btn btn-primary" onClick={mostrameMas}>
                         {mostrarMas ? "Ver menos" : "Ver más"}
                     </button>
-                    <button className="btn alert-primary" onClick={() => favorito ? QuitarFavoritos(props.serie.id) : sumarFavoritos()}>
+
+                    {islogged ? <button className="btn alert-primary" onClick={() => favorito ? QuitarFavoritos(props.peli.id) : sumarFavoritos()}>
                         {favorito ? "❤️" : "🤍"}
-                    </button>
+                    </button> : null}
                 </div>
                 <Link to={`/detalles/tv/${props.serie.id}`} className="btn btn-primary">Ver detalle</Link>
             </article>

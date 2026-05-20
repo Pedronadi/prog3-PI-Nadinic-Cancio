@@ -42,14 +42,14 @@ function Login(props) {
             <h2 class="alert alert-primary">Iniciar sesion</h2>
             <div class="row justify-content-center">
             <div class="col-md-6">
-                <form onSubmit={(e) => this.onSubmit(e)}>
+                <form onSubmit={(e) => onSubmit(e)}>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input onChange={(e) => this.controlarCambio(e, "email")} type="email" class="form-control" id="email" placeholder="Ingresá tu email"></input>
+                        <input onChange={(e) => controlarCambio(e, "email")} type="email" class="form-control" id="email" placeholder="Ingresá tu email"></input>
                     </div>
                     <div class="form-group">
                         <label for="password">Contraseña</label>
-                        <input onChange={(e) => this.controlarCambio(e, "password")} type="password" class="form-control" id="password" placeholder="Ingresá tu contraseña"></input>
+                        <input onChange={(e) => controlarCambio(e, "password")} type="password" class="form-control" id="password" placeholder="Ingresá tu contraseña"></input>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
                 </form>

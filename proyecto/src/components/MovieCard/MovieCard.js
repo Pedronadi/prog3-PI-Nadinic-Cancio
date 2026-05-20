@@ -2,10 +2,15 @@
 import React from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import {useState, useEffect} from "react";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();  
+
 function MovieCard(props) {
 
     const [mostrarMas, setMostrarMas] = useState(false);
     const [favorito, setFavorito] = useState(false);  
+    const islogged = cookies.get("isLogged");
 
     useEffect(() => {
         let fav = localStorage.getItem("PeliFav")
@@ -59,9 +64,11 @@ function MovieCard(props) {
                     <button className="btn btn-primary" onClick={mostrameMas}>
                         {mostrarMas ? "Ver menos" : "Ver más"}
                     </button>
-                    <button className="btn alert-primary" onClick={() => favorito ? QuitarFavoritos(props.peli.id) : sumarFavoritos()}>
+
+
+                    {islogged ? <button className="btn alert-primary" onClick={() => favorito ? QuitarFavoritos(props.peli.id) : sumarFavoritos()}>
                         {favorito ? "❤️" : "🤍"}
-                    </button>
+                    </button> : null}
                 </div>
                 <Link to={`/detalles/movie/${props.peli.id}`} className="btn btn-primary">Ver detalle</Link>
             </article>
