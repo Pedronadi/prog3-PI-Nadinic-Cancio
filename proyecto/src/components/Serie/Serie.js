@@ -7,12 +7,16 @@ function Series(props) {
 
     const [series, setSeries] = useState([]);
     const [busqueda, setBusqueda] = useState("");
-    const [cargarMas, setCargarMas] = useState(1);
+    const [cargarMas, setCargarMas] = useState(2);
+    const [backup, setBackup] = useState([]);
 
     useEffect(() => {
         fetch(api)
         .then(response => response.json())
-        .then(data => setSeries(data.results))
+        .then(data => {
+            setSeries(data.results);
+            setBackup(data.results);
+        })
         .catch(error => console.log(error)
         )
     }, [])
@@ -20,12 +24,23 @@ function Series(props) {
     const cargarSeries = () => {
         console.log("me ejecuto");  
         fetch(api + "&page=" + (cargarMas + 1))
-        .then(res => res.json())
-        .then(data => setSeries(series.concat(data.results))) 
-        .catch(err => console.log(err));
+            .then(res => res.json())
+            .then(data => {
+                let nuevasSeries = series.concat(data.results);
+                setSeries(nuevasSeries);
+                setBackup(backup.concat(data.results));
+                setCargarMas(cargarMas + 1);
+            })
+            .catch(err => console.log(err));
     }
     const handleChange = (e) => {
         setBusqueda(e.target.value);
+        const seriesFiltradas = backup.filter(serie =>
+            serie.name.toLowerCase().includes(e.target.value.toLowerCase())
+        );
+        console.log(seriesFiltradas);
+        
+        setSeries(seriesFiltradas);
     }
  
     return (  

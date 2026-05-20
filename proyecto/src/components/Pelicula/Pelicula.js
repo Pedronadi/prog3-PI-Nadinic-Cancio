@@ -14,6 +14,7 @@ function Peliculas(props) {
         fetch(api)
         .then(response => response.json())
         .then(data => {
+            
             setPeliculas(data.results);
             setBackup(data.results);
         })
@@ -39,11 +40,17 @@ function Peliculas(props) {
     const handleChange = (e) => {
         setBusqueda(e.target.value);
         const peliculasFiltradas = backup.filter(peli =>
-            peli.title.toLowerCase().includes(busqueda.toLowerCase())
+            peli.title.toLowerCase().includes(e.target.value.toLowerCase())
         );
+        console.log(peliculasFiltradas);
+        
         setPeliculas(peliculasFiltradas);
 
     }
+
+
+    console.log(peliculas);
+    
  
     return (  
           <React.Fragment>
