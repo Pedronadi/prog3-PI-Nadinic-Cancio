@@ -1,47 +1,44 @@
-import React, {Component} from "react";
+import React from "react";
+import {useState, useEffect} from "react";
 import { withRouter } from "react-router-dom";
 import Cookies from "universal-cookie";
+
 const cookies = new Cookies();
-export default class Login extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            email: "",
-            password: "",
-        };
+function Login(props) {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const controlarCambio = (e,campo) => {
+        if(campo === "email"){
+            setEmail(e.target.value)
+        }
+        else if(campo === "password"){
+            setPassword(e.target.value)
+        }
     }
 
-    controlarCambio = (e,campo) => {
-        this.setState({
-            [campo]: e.target.value
-        })
-    }
-    onSubmit = (e) => {
-        console.log('ejecuta onSubmit');
+    const onSubmit = (e) => {
         e.preventDefault();
         let usuarioAValidar = {
-            email: this.state.email,
-            password: this.state.password,
+            email: email,
+            password: password,
         }
         let usersStorage = localStorage.getItem("users");
         if(usersStorage !== null){
             let usersParseado = JSON.parse(usersStorage);
-            let usersFiltrado = usersParseado.filter(user => user.email === usuarioAValidar.email && user.password === usuarioAValidar.password);  
+            let usersFiltrado = usersParseado.filter(user => user.email === usuarioAValidar.email && user.password === usuarioAValidar.password);
             if(usersFiltrado.length > 0){
                 cookies.set("isLogged", true, { path: "/" });
-                this.props.history.push("/");
+                props.history.push("/");
             }
             else{
-                this.setState({error: "Email o contraseña incorrectos"})
                 alert("Email o contraseña incorrectos")
                 return;
             }
-            
         }
     }
-    render(){
-        return(
-            <React.Fragment>
+    return ( 
+    <React.Fragment>
             <h2 class="alert alert-primary">Iniciar sesion</h2>
             <div class="row justify-content-center">
             <div class="col-md-6">
@@ -60,6 +57,10 @@ export default class Login extends Component {
             </div>
         </div>
         </React.Fragment>
-        )}
+    )
 }
+export default withRouter(Login);
 
+
+
+    

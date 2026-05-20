@@ -1,4 +1,4 @@
-import React, {Component}from "react";
+
 import { Link } from "react-router-dom";
 import { useState,useEffect } from "react";
 function SerieCard(props) {
